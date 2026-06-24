@@ -115,14 +115,11 @@
     .btn-photo, .btn-edit, .btn-del { width: 38px; height: 38px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text-soft); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
     /* MAP VIEW */
-    .map-view { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; }
-    .map-view.active { display: block; }
+    .map-view { display: none; width: 100%; height: calc(100vh - 160px); position: relative; }
     #fullKakaoMap { width: 100%; height: 100%; }
-    .map-view .map-filter-overlay { position: fixed; top: 60px; left: 10px; right: 10px; z-index: 60; }
-    .map-view .map-popup { position: fixed; bottom: 20px; left: 12px; right: 12px; z-index: 60; }
-    .map-filter-overlay { position: absolute; top: 12px; left: 10px; right: 10px; display: flex; gap: 6px; z-index: 10; overflow-x: auto; scrollbar-width: none; }
+    .map-filter-overlay { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 6px; z-index: 10; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
     .map-filter-overlay::-webkit-scrollbar { display: none; }
-    .map-pill { padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; background: white; color: var(--text-mid); border: 1.5px solid var(--border); cursor: pointer; white-space: nowrap; font-family: 'Noto Sans KR', sans-serif; flex-shrink: 0; }
+    .map-pill { padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; background: white; color: var(--text-mid); border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; white-space: nowrap; font-family: 'Noto Sans KR', sans-serif; flex-shrink: 0; }
     .map-pill.active { background: var(--purple); color: white; }
 
     /* 팝업 카드 */
@@ -238,23 +235,13 @@
   <div id="headerStats" style="text-align:right;font-size:12px;color:var(--text-soft);padding:4px 0 6px"></div>
 </div>
 
-<!-- 지도 필터 (지도뷰일때만 표시) -->
-<div id="mapFilterBar" style="display:none;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--border)">
-  <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none">
-    <button class="map-pill active" onclick="setMapCat('전체',this)">전체</button>
-    <button class="map-pill" onclick="setMapCat('맛집',this)">🍽 맛집</button>
-    <button class="map-pill" onclick="setMapCat('카페',this)">☕ 카페</button>
-    <button class="map-pill" onclick="setMapCat('장소',this)">📍 장소</button>
-  </div>
-</div>
-
 <!-- 리스트 뷰 -->
 <div class="list-wrap" id="listWrap"></div>
 
 <!-- 지도 뷰 -->
 <div class="map-view" id="mapView">
   <div id="fullKakaoMap"></div>
-  <div class="map-filter-overlay" id="mapFilterOverlay" style="display:none">
+  <div class="map-filter-overlay" id="mapFilterOverlay">
     <button class="map-pill active" onclick="setMapCat('전체',this)">전체</button>
     <button class="map-pill" onclick="setMapCat('맛집',this)">🍽 맛집</button>
     <button class="map-pill" onclick="setMapCat('카페',this)">☕ 카페</button>
@@ -553,7 +540,6 @@
     document.getElementById('mapView').style.display = v==='map' ? 'block' : 'none';
     document.getElementById('filterWrap').style.display = v==='list' ? 'block' : 'none';
     document.getElementById('searchBarWrap').style.display = v==='list' ? 'block' : 'none';
-    document.getElementById('mapFilterBar').style.display = v==='map' ? 'block' : 'none';
     document.querySelector('.header').style.zIndex = v==='map' ? '200' : '100';
     const nav = document.querySelector('.bottom-nav');
     if (v==='map') nav.classList.add('hidden'); else nav.classList.remove('hidden');
